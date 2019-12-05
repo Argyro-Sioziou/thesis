@@ -1,6 +1,9 @@
 \documentclass[onside]{book}
 \usepackage{graphicx}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
+\usepackage[backend=biber, style=apa, autocite=inline]{biblatex}
+\DeclareLanguageMapping{english}{english-apa}
+\addbibresource{bibliography.bib}
 \graphicspath{ {images/} }
 
 
@@ -24,5 +27,7 @@
 
 \chapter{CASE STUDY: CLUSTER ANALYSIS ON TRAVEL AGENCY'S DATA}
 \input{chapters/case}
+
+ \printbibliography
 
 \end{document}
