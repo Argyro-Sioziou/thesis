@@ -1,4 +1,4 @@
-\documentclass[onside]{book}
+\documentclass[11pt, onside]{book}
 \usepackage{graphicx}
 \usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
 \usepackage[backend=biber, style=apa, autocite=inline]{biblatex}
@@ -6,19 +6,20 @@
 \usepackage{xcolor}
 \usepackage{sectsty}
 \definecolor{theme}{rgb}{0.09,0.43,0.37}
+\definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
 \allsectionsfont{\color{theme}}
 \hypersetup{
     colorlinks=true,
     citecolor=theme,
     filecolor=black,
-    linkcolor=black,
-    urlcolor=theme,
+    linkcolor=theme,
+    urlcolor= airforceblue,
 }
 \DeclareLanguageMapping{english}{english-apa}
 \addbibresource{bibliography.bib}
-\usepackage[nottoc]{tocbibind}
 \graphicspath{ {images/} }
 
+\newcommand\themebold[1]{\textcolor{theme}{\textbf{#1}}}
 
 \title{Clustering algorithms in the touristic sector}
 \author{Argyro Sioziou}
@@ -41,6 +42,6 @@
 \chapter{CASE STUDY: CLUSTER ANALYSIS ON TRAVEL AGENCY'S DATA}
 \input{chapters/case}
 
- \printbibliography
-
+\printbibliography
+\addcontentsline{toc}{section}{Bibliography}
 \end{document}
