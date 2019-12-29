@@ -33,12 +33,32 @@ Additional applications of clustering in the touristic sector will be analyzed m
 \subsection{Types of Clustering}
 Clustering algorithms can be categorized based on two criterions. The first one is the relationships between the produced clusters of one iteration with the ones of a previous iteration. The second one is the number of clusters an instance can be a part of. \\
 Based on the first criterion, \textcite{tanSteinKum} describe the following types: \\
-Partitional clustering is a type of clustering which allows no overlapping between two or more sets of clusters, hence partitions the initial set to independent sets. This means that each instance can be part of exactly one cluster. \\
-Hierarchical clustering produces clusters in each iteration, which are subsets of a cluster of the previous iteration. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones. \\
+\begin{itemize}
+\item Partitional clustering is a type of clustering which allows no overlapping between two or more sets of clusters, hence partitions the initial set to independent sets. This means that each instance can be part of exactly one cluster \autocite[492]{tanSteinKum}. \\
+\item Hierarchical clustering produces clusters in each iteration, which are subsets of a cluster of the previous iteration. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones \autocite[492]{tanSteinKum}. \\
+\end{itemize}
 \textcite{tanSteinKum} mention three more types of clustering in their book, which are formed based on the second criterion and are the following: \\
-Exclusive clustering signifies that an instance can only be a part of only one cluster. \\
-Overlapping or non-exclusive clustering signifies that an instance can be part of more than one cluster. \\
-Fuzzy clustering signifies that every instance belongs to all the clusters \autocite{tanSteinKum}.
+\begin{itemize}
+\item Exclusive clustering signifies that an instance can only be a part of only one cluster \autocite[492]{tanSteinKum}. Let us define the binary variables \(x_{i}\) for each instance \(x \in X \), where \(X\) are all the instances. If an instance \(x\) belongs to the \(i^{th}\) cluster \(x_{i}\) is set equal to 1, otherwise to 0. Then, if the number of clusters is \(n\), we can describe each cluster by the function:
+\begin{eqnarray*}
+C_{i} = \{(x, x_{i})|x \in X\}
+\end{eqnarray*}
+where \(C_{i}\) is the \(i^{th}\) cluster, and which has the following restrictions:
+\begin{eqnarray*}
+\sum_{i=0}^{n} x_{i} = 1, x_{i} \in \{0,1\}
+\end{eqnarray*}
+\item Overlapping or non-exclusive clustering signifies that an instance can be part of more than one cluster \autocite[492]{tanSteinKum}. We can describe each cluster the same way we did in exclusive clustering, just by adjusting the restrictions: 
+\begin{eqnarray*}
+C_{i} = \{(x, x_{i})|x \in X\} \\
+\sum_{i=0}^{n} x_{i} \geq 1, x_{i} \in \{0,1\}
+\end{eqnarray*}
+where \(C_{i}\) is the \(i^{th}\) cluster, \(x\) is a specific instance, \(x_{i}\) is the binary variable that describes \(x\) in the \(i^{th}\) cluster, \(X\) are all the instances and \(n\) is the number of clusters. 
+\item Fuzzy clustering signifies that every instance belongs to all the clusters \autocite[492]{tanSteinKum}. As \textcite{kantar} explains, the function that shows the membership of an element inside a cluster is called membership function (MF). The value of the MF that describes a given instance is a number between [0,1]. Each cluster can be described as follows:
+\begin{eqnarray*}
+C_{i} = \{(x, \mu_{C}[x])|x \in X\}
+\end{eqnarray*}
+where \(C_{i}\) is the \(i^{th}\) cluster, \(x\) is a specific instance, \(\mu\) is the MF function, and \( X\) is the set that contains all the instances \autocite[416]{kantar}.
+\end{itemize}
 
 \section{K-means}
 K-means is a prototype-based, iterative algorithm in which instances are assigned to a cluster in each iteration. The basic algorithm requires as input K points, called centroids, where K is the number of the desired clusters. To define the cluster that one instance belongs to, the algorithm calculates its distance from all the centroids and assigns it to the closest one. Finally, using the produced clusters calculates the new centroids and repeats until it reaches the desired set. To calculate the distances and the new centroids, the cluster mean needs to be defined and calculated \autocite{dunham, tanSteinKum}. \\
