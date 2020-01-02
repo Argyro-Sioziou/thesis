@@ -5,8 +5,19 @@
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{sectsty}
+\usepackage{listings}
+\usepackage[ruled,vlined, linesnumbered, algochapter]{algorithm2e}
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
+\definecolor{code}{gray}{0.95}
 \definecolor{theme}{rgb}{0.09,0.43,0.37}
 \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+\lstdefinestyle{pseudocode}{
+	numbers=left,
+	backgroundcolor=\color{code},
+	tabsize = 2,
+	numberstyle=\color{gray}
+}
 \allsectionsfont{\color{theme}}
 \hypersetup{
     colorlinks=true,
@@ -20,7 +31,7 @@
 \graphicspath{ {images/} }
 \counterwithin{figure}{section}
 
-
+\lstset{style=pseudocode}
 \newcommand\themebold[1]{\textcolor{theme}{\textbf{#1}}}
 
 \title{Clustering algorithms in the touristic sector}
