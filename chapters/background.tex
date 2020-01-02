@@ -34,9 +34,28 @@ Additional applications of clustering in the touristic sector will be analyzed m
 Clustering algorithms can be categorized based on two criterions. The first one is the relationships between the produced clusters of one iteration with the ones of a previous iteration. The second one is the number of clusters an instance can be a part of. \\
 Based on the first criterion, \textcite{tanSteinKum} describe the following types: \\
 \begin{itemize}
-\item Partitional clustering is a type of clustering which allows no overlapping between two or more sets of clusters, hence partitions the initial set to independent sets. This means that each instance can be part of exactly one cluster \autocite[492]{tanSteinKum}. \\
-\item Hierarchical clustering produces clusters in each iteration, which are subsets of a cluster of the previous iteration. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones \autocite[492]{tanSteinKum}. \\
+\item Partitional clustering is a type of clustering which allows no overlapping between two or more sets of clusters, hence partitions the initial set to independent sets. This means that each instance can be part of exactly one cluster \autocite[492]{tanSteinKum}. Therefore, it could be described as:
+\begin{eqnarray*}
+C_{i} \neq \emptyset, \: i = \{1,..,K\} \\
+\bigcup_{i=1}^{K} C_{i}=X \\
+C_{i} \cap C{j} = \emptyset, \: i,j=\{1, ...,K\} \: and \: i \neq j
+\end{eqnarray*}
+where \(X\) is the initial set, \(K\) the number of partitions, and \(C_{i}\), \(C{j}\) the \(i^{th}\), \(j^{th}\) clusters \autocite[645]{survey}.
+\item Hierarchical clustering produces clusters in each iteration, which are subsets of a cluster of the previous iteration. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones \autocite[492]{tanSteinKum}. Therefore, it could be described as:
+\begin{eqnarray*}
+\left.\begin{array}{c}
+C_{i} \in H_{m}, C_{j} \in H_{l} \\
+m>l
+\end{array}\right. \Rightarrow
+\left\{\begin{array}{c}
+C_{i} \subset C_{j} \\
+or \\
+C_{i} \cap C_{j} = \emptyset
+\end{array}\right.
+, \: i \neq j \: and \: m,l = 1, ...,Q
+\end{eqnarray*}
 \end{itemize}
+where \(H_{m}, H_{l}\) partitions of the original set \(X\), \(Q\) is the number of partitions, and \(C_{i}, C_{j}\) subsets of any of the \(Q\) partitions \autocite[646]{survey}. \\
 \textcite{tanSteinKum} mention three more types of clustering in their book, which are formed based on the second criterion and are the following: \\
 \begin{itemize}
 \item Exclusive clustering signifies that an instance can only be a part of only one cluster \autocite[492]{tanSteinKum}. Let us define the binary variables \(x_{i}\) for each instance \(x \in X \), where \(X\) are all the instances. If an instance \(x\) belongs to the \(i^{th}\) cluster \(x_{i}\) is set equal to 1, otherwise to 0. Then, if the number of clusters is \(n\), we can describe each cluster by the function:
@@ -73,7 +92,7 @@ In the simple case where there is only one numerical value describing each insta
 m_{i} = \frac{1}{m}\sum_{j=1}^{m}(x_{ij})
 \end{eqnarray*}
 where \(m_{i}\) is the mean of the \(i^{th}\) cluster, \(m\) is the number of instances that belong to the \(i^{th}\) cluster, and \(x_{ij}\) is the \(j^{th}\) instance of the \(i^{th}\) cluster \autocite[140]{dunham}. \\
-As \textcite{dunham} describes, the termination techniques of the algorithm may vary. It could be that the clusters of each iteration are the same or almost the same or that the algorithm terminates after a fixed number of iterations \autocite[140]{dunham}.  
+As \textcite{dunham} describes, the termination techniques of the algorithm may vary. It could be that the clusters of each iteration are the same or almost the same or that the algorithm terminates after a fixed number of iterations \autocite[140]{dunham}.
 \begin{algorithm}
 \SetAlgoLined
 \KwInput{\(D=\{x_{1},x_{2},...,x_{n}\} \)\newline
@@ -88,7 +107,7 @@ Recompute the new centroids.
 \caption{K-means}\label{alg:kmeans}
 \end{algorithm} \\
 Algorithm \ref{alg:kmeans} shows the K-means' basic steps \autocite{dunham, tanSteinKum}. \\
-The algorithm's time complexity is O(tkn), where t is the number of iterations, n the number of elements, and k the number of clusters. \autocite[141]{dunham}. It is considered to produce good results and handles better storage and noise compared to some hierarchical agglomerative algorithms \autocite[526]{tanSteinKum}. On the other side, it is not very scalable and time-efficient \autocite[141]{dunham}. Furthermore, outliers need to be handled exclusively in order for the clusters to be representative \autocite[506]{tanSteinKum}.Finally, since K-means bases on the euclidean measure, it works well with globular data, but not that well with other geometrical shapes nor with multi-dimensional(categorical) data \autocite[647, 649]{survey}. 
+The algorithm's time complexity is O(tkn), where t is the number of iterations, n the number of elements, and k the number of clusters. \autocite[141]{dunham}. It is considered to produce good results and handles better storage and noise compared to some hierarchical agglomerative algorithms \autocite[526]{tanSteinKum}. On the other side, it is not very scalable and time-efficient \autocite[141]{dunham}. Furthermore, outliers need to be handled exclusively in order for the clusters to be representative \autocite[506]{tanSteinKum}.Finally, since K-means bases on the euclidean measure, it works well with globular data, but not that well with other geometrical shapes nor with multi-dimensional (categorical) data \autocite[647, 649]{survey}.
 \section{Applications in the touristic sector}
 \label{applications}
 As \textcite{data-drivenSegmentation} states, companies all around the globe use market segmentation to target their audiences more effectively and consume their resources more efficiently. Cluster analysis is a useful tool for the creation of those segments to create groups of people that seek similar benefits from their travel experiences. These groups not only help in the formation of marketing strategies but also to products that offer higher fulfillment to their consumers \autocite[17]{data-drivenSegmentation}. This type of segmentation was introduced by \textcite{Haley} in 1968 and is called benefit segmentation. The need for the creation of a new way of grouping target groups arose from the fact that tourists' behavior is mainly determined by the benefits they seek to satisfy and not by descriptive factors \autocite[31]{Haley}. \\
@@ -96,6 +115,6 @@ As \textcite{data-drivenSegmentation} states, companies all around the globe use
 A sample application of benefit segmentation using cluster analysis describe \textcite{finland} in their article. Data about tourists were gathered in the region of Savonlinna, Finland, during the period with the highest footfall of the year through electronic questionnaires. The research aims to find the different segments of tourists based on the benefits they seek and then examine the interest of each segment on wellness holidays. \\
 For the segment formulation, they used two algorithms, one hierarchical to find the best number of clusters, and K-means to create the clusters. The solution they proposed contained four distinct clusters. From the four clusters, two of them seemed to have a higher preference for wellness services, as designated by \textcite{finland} 'Culturals' and 'Sightseers'. Both clusters portrayed people that seem to favor attractions and also have a tendency to go back to the same destination for their vacation. Additionally, the 'Culturals' show a preference for cultural activities, where 'Sightseers' show a preference for sightseeing activities. The illustrated interpretation of the results is that the previous approach, which promoted wellbeing products based on nature, might not be the most appropriate. The suggested alternative claims that combining wellbeing with history, culture, diverse experiences, and attractions could be more efficient \autocite[308-312]{finland}. \\
 \subsection{A Clustering Method for Categorical Data in Tourism Market Segmentation Research}
-Another sample application that focuses more on the nature of the data to be analyzed describes \textcite{categorical}. Commonly, collected touristic data come from surveys, which, to a great extent, contain qualitative data. Furthermore, for the market segmentation to produce more representative results, many attributes should be used. Even so, most clustering methods used by marketers do not work well nor with multidimensional nor with categorical data \autocite[391]{categorical}. \\
+Another sample application that focuses more on the nature of the data to be analyzed describes \textcite{categorical}. Commonly, collected touristic data come from surveys, which, to a great extent, contain qualitative data. Furthermore, for the market segmentation to produce more representative results, many attributes should be used. Even so, most clustering methods used by marketers do not work well nor with multi-dimensional nor with categorical data \autocite[391]{categorical}. \\
 \textcite{categorical} used a Bed and Breakfast (B\&B) survey in order to illustrate a more reliable way to deal with this type of data. First, they used multiple correspondence analysis (MCA) to produce some initial cluster groups, get a visualization of them, and understand them. Afterward, they performed cluster analysis, using the k-means algorithm, in order to find the market segments. They concluded in four clusters, from which the three of them seemed to be worthy of further analysis. The other cluster did not contain enough data to lead to meaningful interpretation. The first of the three segments contained respondents who were seeking a romantic experience and were less likely to return to the B\&B. Also, they were not very concerned about the cost and amenities provided. Tourists of the second cluster were looking for cozier, more peaceful, nature-related options and were more likely to go back to the same place if they liked it. They also preferred to take part in energetic activities and, similarly to the first cluster, do not care so much about price and amenities. The third cluster was technically a mixture of the two previous ones. The distinguishing factor was the eagerness of the people of the latter to socialize and the importance of price, value factors \autocite[394-395]{categorical}. \\
 Taking into consideration the results of the k-means \textcite{categorical} used the geographical characteristics of each cluster and suggested the usage of different marketing approaches on each of the three regions that the respondents came from (Wisconsin, Minnesota, Illinois). The B\&B owners made some changes based on the formed clusters to improve their customer satisfaction. For example, they decided to offer a private breakfast to the first cluster, add more activities to please the second cluster, and provide information about social events to the people of the last cluster. Furthermore, they were planning on changing their marketing strategy based on the demographics provided by the research to better target their audience \autocite[395-396]{categorical}.
