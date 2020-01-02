@@ -36,15 +36,17 @@ Based on the first criterion, \textcite{tanSteinKum} describe the following type
 \begin{itemize}
 \item Partitional clustering is a type of clustering which allows no overlapping between two or more sets of clusters, hence partitions the initial set to independent sets. This means that each instance can be part of exactly one cluster \autocite[492]{tanSteinKum}. Therefore, it could be described as:
 \begin{eqnarray*}
-C_{i} \neq \emptyset, \: i = \{1,..,K\} \\
-\bigcup_{i=1}^{K} C_{i}=X \\
+\begin{array}{c}
+C_{i} \neq \emptyset, \: i = \{1,..,K\} \\[4pt]
+\bigcup_{i=1}^{K} C_{i}=X \\[4pt]
 C_{i} \cap C{j} = \emptyset, \: i,j=\{1, ...,K\} \: and \: i \neq j
+\end{array}
 \end{eqnarray*}
 where \(X\) is the initial set, \(K\) the number of partitions, and \(C_{i}\), \(C{j}\) the \(i^{th}\), \(j^{th}\) clusters \autocite[645]{survey}.
 \item Hierarchical clustering produces clusters in each iteration, which are subsets of a cluster of the previous iteration. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones \autocite[492]{tanSteinKum}. Therefore, it could be described as:
 \begin{eqnarray*}
 \left.\begin{array}{c}
-C_{i} \in H_{m}, C_{j} \in H_{l} \\
+C_{i} \in H_{m}, C_{j} \in H_{l} \\[4pt]
 m>l
 \end{array}\right. \Rightarrow
 \left\{\begin{array}{c}
