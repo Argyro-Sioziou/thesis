@@ -110,6 +110,9 @@ Recompute the new centroids.
 \end{algorithm} \\
 Algorithm \ref{alg:kmeans} shows the K-means' basic steps \autocite{dunham, tanSteinKum}. \\
 The algorithm's time complexity is O(tkn), where t is the number of iterations, n the number of elements, and k the number of clusters. \autocite[141]{dunham}. It is considered to produce good results and handles better storage and noise compared to some hierarchical agglomerative algorithms \autocite[526]{tanSteinKum}. On the other side, it is not very scalable and time-efficient \autocite[141]{dunham}. Furthermore, outliers need to be handled exclusively in order for the clusters to be representative \autocite[506]{tanSteinKum}.Finally, since K-means bases on the euclidean measure, it works well with globular data, but not that well with other geometrical shapes nor with multi-dimensional (categorical) data \autocite[647, 649]{survey}.
+
+\section{Agglomerative Clustering}
+
 \section{Applications in the touristic sector}
 \label{applications}
 As \textcite{data-drivenSegmentation} states, companies all around the globe use market segmentation to target their audiences more effectively and consume their resources more efficiently. Cluster analysis is a useful tool for the creation of those segments to create groups of people that seek similar benefits from their travel experiences. These groups not only help in the formation of marketing strategies but also to products that offer higher fulfillment to their consumers \autocite[17]{data-drivenSegmentation}. This type of segmentation was introduced by \textcite{Haley} in 1968 and is called benefit segmentation. The need for the creation of a new way of grouping target groups arose from the fact that tourists' behavior is mainly determined by the benefits they seek to satisfy and not by descriptive factors \autocite[31]{Haley}. \\
