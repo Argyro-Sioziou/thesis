@@ -120,17 +120,68 @@ name & Excursion name.\\
 \\
 \subsection{Processing and reforming}
 After cleaning the data and before performing the analysis, some additional preprocessing was done. This preprocessing contained the creation of new columns and tranformation of categorical data to numerical, ordinal whenever that was possible.Eventually, the tables were reformed to a flat structure. The additional data were used both for the analysis and the interpretation of the results. \\
-First of all, the service booking dates were used in order to define the season status of the trip. The season status can either be low, medium or high, and is used to show whether, in a certain period, a small or a big number of reservations is expected. As defined from the travel agency, high season is during Christmas and Easter(in this case orthodox) holidays and from the 10th of July to the end of August. Medium season are considered September, June and from the 1st until the 9th of July. The rest of the year is considered low season. Furthermore, in order to keep each booked service only once, on its final state, only the maximum vnumber was kept for each service. Finally, for the accommodation services, to get a more representative value of the service,  the price per person per night was calculated. \\
+First of all, the service booking dates were used in order to define the season status of the trip. The season status can either be low, medium or high, and is used to show whether, in a certain period, a small or a big number of reservations is expected. As defined from the travel agency, high season is during Christmas and Easter(in this case orthodox) holidays and from the 10th of July to the end of August. Medium season are considered September, June and from the 1st until the 9th of July. The rest of the year is considered low season. Furthermore, in order to keep each booked service only once, on its final state, only the maximum vnumber was kept for each service. Finally, for the accommodation services, to get a more representative value of the service, the price per person per night was calculated. \\
 As shown in figure \Nameref{fig:erp}, the 'Room' table contains information with regard to its composition. Instead of just using the number of adults and children a composition tag was created. The terms used by the travel agency to describe the composition are family, couple, single, crew and group. For interpration purposes these tags were added to the room data. \\
 As already mentioned, information about the type and class can be drawn from the 'Master' table. The descriptions of the codes by themeselves provide many verbal information that can be summarized to create universal tags for the accommodations. Therefore, using those descriptions, five type tags were created, hotel, studio, apartment, house and villa, and three class tags, A(high class), B(medium class) or C(low class). The class tags were represented by numerical values for the analysis.
-After transforming the initial tables to a flat structure, several plots were made with different combinations of columns and data formats using PCA(Principal Component Analysis). These plots helped getting a better idea of how the data are scattered and also test whether the data manipulation already done could result in meaningful clusters. The plot of the data that were later used for the analysis is shown in figure \ref{fig:PCA}. By observing the figure, we would expect as an ideal output of the algorithms four clusters.
+After transforming the initial tables to a flat structure, several plots were made with different combinations of columns and data formats using PCA(Principal Component Analysis). These plots helped to get a better idea of how the data are scattered and also test whether the data manipulation already done could result in meaningful clusters. The plot of the data that were later used for the analysis is shown in figure \ref{fig:PCA}. By observing the figure, we would expect as an ideal output of the algorithms four clusters. \\
 \begin{figure}[ht]
 \centering
-\includegraphics[width=12cm,height=12cm]{initial}
+\includegraphics[width=9cm,height=9cm]{initial}
 \caption{Data plot.}
 \label{fig:PCA}
 \end{figure}
-\\
 
 \section{Kmeans}
+The first algorithm used was Kmeans. The metric used to calculate the distances was Euclidean distance and the number of repetitions was 50. \\
+Before running the algorithm, two methods were used to find the best number of clusters to be used for the value of k. The first one, the elbow method, returned that the ideal number of clusters is seven (\ref{fig:elbow}). The second one used was the silhouette method. In this case, the ideal number of k was eight as shown in diagram \ref{fig:shilouette}.
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{kmeans_elbow}
+\caption{Elbow method.}
+\label{fig:elbow}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{kmeans_shilouette}
+\caption{Shilouette method.}
+\label{fig:shilouette}
+\end{subfigure}%
+\caption{Methods used to find the optimal number of clusters.}
+\label{fig:methods}
+\end{figure}
+\\
+In order to conclude which would be the final kmeans clusters to be analyzed, kmeans was run two times, using as k the numbers seven and eight respectively. Afterward, PCA was used on both results and seven was chosen as the best fit. From the seven produced clusters three of them were considered unworthy of further analysis because they were too small. So eventually, kmeans resulted in four clusters that can be observed in figure \ref{fig:kmeans}. \\
+\begin{figure}[ht]
+\centering
+\includegraphics[width=9cm,height=9cm]{kmeans}
+\caption{Kmeans algorithm.}
+\label{fig:kmeans}
+\end{figure}
+\\
+Descriptive statistics were used to better understand the created groups and the reasons why they were formed the way they did. The formation of the clusters was affected to a great extent by the type of accommodation. The type of accommodation was the only categorical data used for the analysis that could not be converted to ordinal, therefore it is normal that the algorithm recognized those groups. In the following paragraphs, the clusters will be analyzed. \\
+The first cluster(cluster 1 in diagrams) mainly contains low-cost, brief trips done by either families, crews or groups. These trips are more 'Value for money' oriented, since, even though they are very cheap, they contain relatively good quality accommodations (category B). \\
+The second one(cluster 2 in diagrams) is also for brief trips. It differentiates on the category of the accommodation, the cost, and the composition. It contains accommodations of the highest quality, of the highest cost of all the clusters, and includes mainly singles and couples. This is considered a cluster that describes 'Luxury trips'. \\
+The third cluster(cluster 4 in diagrams) differentiates mainly from the others on the trip's number of days, which appears to be very high. The reservations are mainly for studios of average quality and price. This is the 'Relaxing vacation' cluster. \\
+Finally, the last cluster(cluster 7 in diagrams) is very similar to the first one, apart from one very important factor. The quality of the accommodation is the lowest of all the other clusters even though the price does not change that much, as it can be observed from diagram \ref{fig:kmeans1}. This is the ... cluster.
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{kmeans_diagram_1}
+\caption{Average days and average net per person per day per cluster.}
+\label{fig:kmeans1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{kmeans_diagram_2}
+\caption{Total net per cluster.}
+\label{fig:kmeans2}
+\end{subfigure}%
+\caption{Descriptive statistics of the clusters.}
+\label{fig:methods}
+\end{figure}
+\\
+As observed from diagram \ref{fig:kmeans2}, the most profitable for the agency clusters seem to be clusters 'Luxury trips' and 'Relaxing vacation'. Therefore, in order to increase profits, the travel agency could include more trips of these types to their portfolios, to better fulfill the needs of these specific clusters. It could also organize marketing campaigns to target those groups and approach more people.
 \section{Agglomerative Clustering}
