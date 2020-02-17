@@ -164,24 +164,61 @@ Descriptive statistics were used to better understand the created groups and the
 The first cluster(cluster 1 in diagrams) mainly contains low-cost, brief trips done by either families, crews or groups. These trips are more 'Value for money' oriented, since, even though they are very cheap, they contain relatively good quality accommodations (category B). \\
 The second one(cluster 2 in diagrams) is also for brief trips. It differentiates on the category of the accommodation, the cost, and the composition. It contains accommodations of the highest quality, of the highest cost of all the clusters, and includes mainly singles and couples. This is considered a cluster that describes 'Luxury trips'. \\
 The third cluster(cluster 4 in diagrams) differentiates mainly from the others on the trip's number of days, which appears to be very high. The reservations are mainly for studios of average quality and price. This is the 'Relaxing vacation' cluster. \\
-Finally, the last cluster(cluster 7 in diagrams) is very similar to the first one, apart from one very important factor. The quality of the accommodation is the lowest of all the other clusters even though the price does not change that much, as it can be observed from diagram \ref{fig:kmeans1}. This is the ... cluster.
+Finally, the last cluster(cluster 7 in diagrams) is very similar to the first one, apart from one very important factor. The quality of the accommodation is the lowest of all the other clusters even though the price does not change that much, as it can be observed from diagram \ref{fig:kmeans1}. This is the 'Cheap trip' cluster.
 \begin{figure}[ht]
 \centering
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=\linewidth]{kmeans_diagram_1}
-\caption{Average days and average net per person per day per cluster.}
+\caption{Average days and average net per person per day for each cluster.}
 \label{fig:kmeans1}
 \end{subfigure}%
 \begin{subfigure}{.5\textwidth}
 \centering
 \includegraphics[width=\linewidth]{kmeans_diagram_2}
-\caption{Total net per cluster.}
+\caption{Total net for each cluster.}
 \label{fig:kmeans2}
 \end{subfigure}%
 \caption{Descriptive statistics of the clusters.}
-\label{fig:methods}
+\label{fig:kmeans_descriptives}
 \end{figure}
 \\
-As observed from diagram \ref{fig:kmeans2}, the most profitable for the agency clusters seem to be clusters 'Luxury trips' and 'Relaxing vacation'. Therefore, in order to increase profits, the travel agency could include more trips of these types to their portfolios, to better fulfill the needs of these specific clusters. It could also organize marketing campaigns to target those groups and approach more people.
+As observed from diagram \ref{fig:kmeans2}, the most profitable for the agency clusters seem to be clusters 'Luxury trips' and 'Relaxing vacation'. Based on those results the agency could adjust the provided product more to the customer needs. Therefore, in order to increase profits, the travel agency could include more trips of these types to their portfolios. These results can also help in the way the agency addresses its clients. It could change its marketing campaigns to target each group in a more personalized way and attract more clients. For example, when targeting a family it could present its package as a smart value for money option. Furthermore, it could concentrate more on promoting the two most profitable groups, especially cluster number 4, which seems to be one of the most profitable while counting a small number of reservations. In this way, it could effectively increase its revenue. \\
+
 \section{Agglomerative Clustering}
+The second method used to cluster the dataset was Agglomerative clustering. The metric used to compute the linkage between the clusters was the Manhattan distance, using average linkage. To observe the formation of clusters the dendogram \ref{fig:dendrogram} was created. \\
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\linewidth,height=0.4\linewidth]{dendrogram}
+\caption{Dendrogram.}
+\label{fig:dendrogram}
+\end{figure}
+\\
+ By observing it the expected clusters would be three. Though, PCA was also used for various values of n and eventually the number of clusters was set to eight, with the result being the following. \\
+\begin{figure}[ht]
+\centering
+\includegraphics[width=9cm,height=9cm]{agglomerative}
+\caption{Agglomerative clustering.}
+\label{fig:agglomerative}
+\end{figure}
+\\
+Just as in the case of Kmeans, some of the clusters formed did not provide meaningful results and were not considered worth analyzing. The ones that provide useful information are clusters one, two and four. Cluster 1 of agglomerative clustering is the 'Value for money' cluster from Kmeans, and cluster 4 is the 'Relaxing Vacation' cluster. Cluster 2 seems to be a join of the other two Kmeans clusters and will be named 'Low cost trip' cluster, since it contains the cheapest accommodations, of the lowest quality, and it is about trips that do not last many days (\ref{agglomerative_diagram_2}). 
+\begin{figure}[ht]
+\centering
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{agglomerative_diagram_2}
+\caption{Average days and average net per person per day for each cluster.}
+\label{fig:agglomerative1}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\centering
+\includegraphics[width=\linewidth]{agglomerative_diagram_1}
+\caption{Total net for each cluster.}
+\label{fig:agglomerative2}
+\end{subfigure}%
+\caption{Descriptive statistics of the clusters.}
+\label{fig:agglomerative_descriptives}
+\end{figure}
+\\
+The importance of cluster 'Luxury vacation' on the total net is even more prominent now, as can be noticed from diagram \ref{agglomerative_diagram_1}. On the other side, the 'Low cost trip' cluster, even though it contains the most reservations, has a very low impact on the total revenue of the agency. Therefore, as proposed in the previous section the agency should concetrate more on the providance of the services of the clusters 'Luxury trip' and 'Relaxing vacation' and their promotion.
