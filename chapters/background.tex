@@ -43,7 +43,7 @@ C_{i} \cap C{j} = \emptyset, \: i,j=\{1, ...,K\} \: and \: i \neq j
 \end{array}
 \end{eqnarray*}
 where \(X\) is the initial set, \(K\) the number of partitions, and \(C_{i}\), \(C{j}\) the \(i^{th}\), \(j^{th}\) clusters \autocite[645]{survey}.
-\item Hierarchical clustering produces clusters in each iteration, which are subsets of a cluster of the previous iteration. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones \autocite[492]{tanSteinKum}. Therefore, it could be described as:
+\item Hierarchical clustering produces clusters in each iteration, which are hierarchically connected to the clusters of the previous iteration. Based on whether the clusters are formed by combining clusters of the previous iteration (bottom-up) it is called agglomerative, or by decomposing clusters of the previous iteration (top-down) it is called divisive. This can occur by starting from one cluster, which contains all instances, and repeatedly partition the available clusters to even smaller ones \autocite[492]{tanSteinKum}. Therefore, it could be described as:
 \begin{eqnarray*}
 \left.\begin{array}{c}
 C_{i} \in H_{m}, C_{j} \in H_{l} \\[4pt]
@@ -82,7 +82,7 @@ where \(C_{i}\) is the \(i^{th}\) cluster, \(x\) is a specific instance, \(\mu\)
 \end{itemize}
 
 \section{K-means}
-K-means is a prototype-based, iterative algorithm in which instances are assigned to a cluster in each iteration. The basic algorithm requires as input K points, called centroids, where K is the number of the desired clusters. To define the cluster to which one instance belongs to, the algorithm calculates its distance from all the centroids and assigns it to the closest one. Finally, using the produced clusters calculates the new centroids and repeats until it reaches the desired set. Each cluster's mean needs to be defined and recalculated in each iteration to redefine the new centroids \autocite{dunham, tanSteinKum}. \\
+As \textcite{dunham, tanSteinKum} explain K-means is a prototype-based, iterative algorithm in which instances are assigned to a cluster in each iteration. The basic algorithm requires as input K points, called centroids, where K is the number of the desired clusters. To define the cluster to which one instance belongs to, the algorithm calculates its distance from all the centroids and assigns it to the closest one. Finally, using the produced clusters calculates the new centroids and repeats until it reaches the desired set. Each cluster's mean needs to be defined and recalculated in each iteration to redefine the new centroids \autocite{dunham, tanSteinKum}. \\
 \textcite{euclidean} explain that K-means is practically a minimization problem. The objective function (the function to be minimized) is the function that calculates the distances between one instance and its cluster's centroid. The smallest the sum of the distances of one cluster's centroid to its instances, the highest the homogeneity of the cluster \autocite[2]{euclidean}. \\
 Disimalirites between data objects are their distance \autocite[69]{tanSteinKum}, though there are many different methods of calculating the distance between two instances, the most common one used is the Euclidean distance \autocite[648]{survey}. Using the Euclidean distance to calculate the distances between the centroid of a cluster, and the rest of the cluster's instances, for a one-dimensional dataset, the model is as follows:
 \begin{eqnarray*}
@@ -109,10 +109,37 @@ Recompute the new centroids.
 \caption{K-means}\label{alg:kmeans}
 \end{algorithm} \\
 Algorithm \ref{alg:kmeans} shows the K-means' basic steps \autocite{dunham, tanSteinKum}. \\
-The algorithm's time complexity is O(tkn), where t is the number of iterations, n the number of elements, and k the number of clusters. \autocite[141]{dunham}. It is considered to produce good results and handles better storage and noise compared to some hierarchical agglomerative algorithms \autocite[526]{tanSteinKum}. On the other side, it is not very scalable and time-efficient \autocite[141]{dunham}. Furthermore, outliers need to be handled exclusively in order for the clusters to be representative \autocite[506]{tanSteinKum}.Finally, since K-means bases on the euclidean measure, it works well with globular data, but not that well with other geometrical shapes nor with multi-dimensional (categorical) data \autocite[647, 649]{survey}.
+The algorithm's time complexity is \(O(tkn)\), where t is the number of iterations, n the number of elements, and k the number of clusters. \autocite[141]{dunham}. It is considered to produce good results and handles better storage and noise compared to some hierarchical agglomerative algorithms \autocite[526]{tanSteinKum}. On the other side, it is not very scalable and time-efficient \autocite[141]{dunham}. Furthermore, outliers need to be handled exclusively in order for the clusters to be representative \autocite[506]{tanSteinKum}.Finally, since K-means bases on the euclidean measure, it works well with globular data, but not that well with other geometrical shapes nor with multi-dimensional (categorical) data \autocite[647, 649]{survey}.
 
 \section{Agglomerative Clustering}
-
+As \textcite{tanSteinKum,han} explain agglomerative clustering is a hierarchical algorithm that starts by assigning each instance to its cluster. Then, on each iteration, it merges the two clusters that are the closest to each other. If no termination condition is set, on the final iteration, there is one big cluster that contains all the initial instances. To decide which clusters to merge, a similarity measure is calculated in each iteration for its clusters and a linkage measure needs to be chosen \autocite{tanSteinKum,han}. Its results are usually presented using a binary tree on a dendrogram \autocite{survey}. \\
+A simple alternative to Euclidean distance could be the Manhattan distance. Based on \textcite{manhattan}, it is the sum of the differences between two points coordinates. The model is as follows:
+\begin{eqnarray*}
+d_{xy} = \sum_{i=0}^{n}\abs{x_{i}-y_{i}}
+\end{eqnarray*}
+where \(d_{xy}\) the distance between two points \(x\) and \(y\) and \(i\) the \(i^{th}\) dimension out of \(n\) \autocite{manhattan}. A distance matrix, called proximity matrix is usually created using the distance function to be given as input for the algorithm \autocite{dunham, tanSteinKum}. \\
+Linkage measure is the way the similarity measure is used in order to choose the two clusters that are considered the closest \autocite[260]{kantar}. They fall into three main categories, single-linkage, average-linkage, and complete-linkage \autocite[517]{tanSteinKum}. As \textcite{han} explain, single-linkage means that after the similarity measure for all the pairs of instances of each two clusters is calculated, the minimum distance for each pair of clusters is used to decide which two clusters are the closest. On the other side, complete linkage means that the max is chosen, and average linkage that the average distance is calculated. Therefore the different types of linkage can be described as follows:
+\begin{eqnarray*}
+Single\,linkage: dist_{min}(C_{i}, C_{j}) = \min\limits_{ x_{i} \in C_{i}, x_{j} \in C_{j}} d(x^{i}, x^{j}) \\
+Complete\,linkage: dist_{max}(C_{i}, C_{j}) = \max\limits_{ x_{i} \in C_{i}, x_{j} \in C_{j}} d(x^{i}, x^{j}) \\
+Average\,linkage: dist_{avg}(C_{i}, C_{j}) = \frac{1}{n_{i}n{j}}\sum_{ x_{i} \in C_{i}, x_{j} \in C_{j}}d(x_{i}, x_{j}) \\
+\end{eqnarray*}
+where dist is the function of the similarity measure, \(C_{i}, C_{j}\) are the \(i^{th}\) and \(j^{th}\) clusters and \(x^{i}, x^{j}\) are instances of the \(C_{i}^{th}, C_{j}^{th}\) clusters \autocite[460]{han}.
+\begin{algorithm}
+\SetAlgoLined
+\KwInput{\(D=\{x_{1},x_{2},...,x_{n}\} \)\newline
+}
+\KwOutput{Cluster sets}
+Compute the proximity matrix. \\
+\While{there is more than one clusters}
+{
+Merge the closest two clusters.\\
+Recompute the proximity matrix.
+}
+\caption{Agglomerative Clustering}\label{alg:agglomerative}
+\end{algorithm} \\
+Algorithm \ref{alg:agglomerative} shows agglomerative clustering's basic steps \autocite{dunham, tanSteinKum}. \\
+The algorithm's time complexity is \(O(n^{2}lgn)\), where n is the number of proximities assuming the matrix is symmetrical \autocite{dunham, tanSteinKum}. Because of that, it is not considered scalable and suitable for high-dimensional data \autocite{tanSteinKum,kantar}, though through the years new techniques have been developed to deal with this problem \autocite{survey}. Furthermore, a danger for low-quality results is lurking in case the splits are not wisely chosen, since they can not be undone, and instances can not move from one cluster to another \autocite{han}.
 \section{Applications in the touristic sector}
 \label{applications}
 As \textcite{data-drivenSegmentation} states, companies all around the globe use market segmentation to target their audiences more effectively and consume their resources more efficiently. Cluster analysis is a useful tool for the creation of those segments to create groups of people that seek similar benefits from their travel experiences. These groups not only help in the formation of marketing strategies but also to products that offer higher fulfillment to their consumers \autocite[17]{data-drivenSegmentation}. This type of segmentation was introduced by \textcite{Haley} in 1968 and is called benefit segmentation. The need for the creation of a new way of grouping target groups arose from the fact that tourists' behavior is mainly determined by the benefits they seek to satisfy and not by descriptive factors \autocite[31]{Haley}. \\
